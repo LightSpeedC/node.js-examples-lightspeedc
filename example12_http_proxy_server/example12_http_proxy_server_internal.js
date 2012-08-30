@@ -5,19 +5,29 @@ var fwd_port = 8080;			// external proxy server port
 var fwd_host = "192.168.251.10";	// external proxy server IP address
 
 var http = require('http');
+//var url = require('url');
+var util = require('util');
 
 http.createServer(function (req, resp) {
+  //url_parse = url.parse(req.url);
+  //url_parse = url.parse(req.url, false, true);
+  //console.log('req:', util.inspect(req, showHidden=false, depth=2, color=true));
+  //console.log('URL:', util.inspect(url_parse, showHidden=false, depth=null, color=true));
+
   var options = {
     host: fwd_host,
     port: fwd_port,
-    path: req.url
+    path: req.url, //url_parse.path
+    method: req.method,
+    headers: req.headers
   };
 
-  console.log('REQUEST: ', req.url);
+  console.log('REQ:', req.method, req.url);
+  //console.log('OPT:', JSON.stringify(options));
 
   var fwd_req = http.request(options, function (fwd_resp) {
-    //console.log('STATUS: ', fwd_resp.statusCode);
-    //console.log('HEADERS: ' + JSON.stringify(fwd_resp.headers));
+    //console.log('STS:', fwd_resp.statusCode);
+    //console.log('HDR:', JSON.stringify(fwd_resp.headers));
 
     fwd_resp.on('data', function (chunk) {
       resp.write(chunk, 'binary');
