@@ -28,7 +28,7 @@ http.get(options, function(resp) {
     console.log('BODY: data chunk legth='+chunk.length);
     console.log(chunk);
 
-    // ‘Sdata‚ª1‰ñ‚Åæ“¾‚Å‚«‚Ä‚¢‚é‘O’ñ
+    // å…¨dataãŒ1å›ã§å–å¾—ã§ãã¦ã„ã‚‹å‰æ
     var graph = eval('('+chunk+')');
     console.log();
     console.log('GRAPH:');
